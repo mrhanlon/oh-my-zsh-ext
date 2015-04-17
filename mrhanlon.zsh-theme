@@ -26,6 +26,7 @@ if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
     purple="%F{135}"
     hotpink="%F{161}"
     limegreen="%F{118}"
+    green="%F{118}"
 else
     turquoise="$fg[cyan]"
     orange="$fg[yellow]"
@@ -95,6 +96,19 @@ function steeef_precmd {
 }
 add-zsh-hook precmd steeef_precmd
 
+HOSTNAME=$(scutil --get ComputerName)
+NETWORK=roam
+WIRED_IP=$(ipconfig getifaddr en6)
+WIRELESS_IP=$(ipconfig getifaddr en0)
+
+if [ ! -z $WIRED_IP ]; then
+  NETWORK=●
+elif [ ! -z $WIRELESS_IP ]; then
+  NETWORK=○
+else
+  NETWORK=☁
+fi
+
 PROMPT=$'
-[%{$purple%}%n%{$reset_color%}@%{$orange%}%m%{$reset_color%}]%{$limegreen%}%~%{$reset_color%} $vcs_info_msg_0_$(virtualenv_info)%{$reset_color%}
-%{$hotpink%}➜%{$reset_color%} '
+%{$limegreen%}%~%{$reset_color%} $vcs_info_msg_0_$(virtualenv_info)%{$reset_color%}
+[%{$purple%}%n%{$reset_color%}@%{$orange%}$HOSTNAME%{$reset_color%}] %{$hotpink%}$NETWORK%{$reset_color%} ➜ '
