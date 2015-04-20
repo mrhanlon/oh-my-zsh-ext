@@ -98,17 +98,15 @@ add-zsh-hook precmd steeef_precmd
 
 HOSTNAME=$(scutil --get ComputerName)
 NETWORK=roam
-WIRED_IP=$(ipconfig getifaddr en6)
+WIRED_IP=$(ipconfig getifaddr en1||ipconfig getifaddr en6)
 WIRELESS_IP=$(ipconfig getifaddr en0)
 
 if [ ! -z $WIRED_IP ]; then
-  NETWORK=●
-elif [ ! -z $WIRELESS_IP ]; then
-  NETWORK=○
+  NETWORK=★
 else
   NETWORK=☁
 fi
 
 PROMPT=$'
 %{$limegreen%}%~%{$reset_color%} $vcs_info_msg_0_$(virtualenv_info)%{$reset_color%}
-[%{$purple%}%n%{$reset_color%}@%{$orange%}$HOSTNAME%{$reset_color%}] %{$hotpink%}$NETWORK%{$reset_color%} ➜ '
+[%{$purple%}%n%{$reset_color%}@%{$orange%}$HOSTNAME%{$reset_color%}] %{$hotpink%}$NETWORK%{$reset_color%} %{$turquoise%}➜%{$reset_color%} '
