@@ -98,7 +98,7 @@ add-zsh-hook precmd steeef_precmd
 
 HOSTNAME=$(scutil --get ComputerName)
 NETWORK=roam
-WIRED_IP=$(ipconfig getifaddr en1||ipconfig getifaddr en6)
+WIRED_IP=$(ipconfig getifaddr en1||ipconfig getifaddr en6||ipconfig getifaddr en4)
 WIRELESS_IP=$(ipconfig getifaddr en0)
 
 if [ ! -z $WIRED_IP ]; then
